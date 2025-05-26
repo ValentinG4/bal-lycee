@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+{# <style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code>D:/bal-lycee/src/Controller/HomeController.php</code></li>
+        <li>Your template at <code>D:/bal-lycee/templates/home/index.html.twig</code></li>
+    </ul>
+</div> #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Scanner QR Code</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    #reader {
+      width: 300px;
+      margin: auto;
+      padding-top: 20px;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">Scanner QR Code</h1>
+  <div id="reader"></div>
+  <div id="result">Aucun QR code détecté</div>
+
+  <script>
+    const resultContainer = document.getElementById('result');
+
+    function onScanSuccess(decodedText, decodedResult) {
+      resultContainer.innerText = `✅ QR Code détecté : ${decodedText}`;
+      // Si tu veux arrêter le scan après la première détection :
+      html5QrcodeScanner.clear();
+    }
+
+    function onScanFailure(error) {
+      // Tu peux afficher des erreurs si tu veux.
+    }
+
+    const html5QrcodeScanner = new Html5QrcodeScanner(
+      "reader", 
+      { fps: 10, qrbox: 250 }, 
+      /* verbose= */ false
+    );
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+  </script>
+</body>
+</html>
+{% endblock %} 
