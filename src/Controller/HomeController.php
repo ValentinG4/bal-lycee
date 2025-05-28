@@ -15,4 +15,11 @@ final class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+     #[Route('/tableau', name: 'tableau')]
+    public function tab(): Response
+    {
+        return $this->render('home/tab.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
 }
