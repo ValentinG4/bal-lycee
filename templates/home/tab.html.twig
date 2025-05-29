@@ -7,7 +7,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Listes des invités</title>
+  <title>Listes des invités avec recherche</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Bootstrap 5 CSS -->
@@ -43,6 +43,20 @@
       min-width: 320px;
       max-width: 480px;
     }
+    input.search-input {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ced4da;
+      transition: border-color 0.3s ease;
+    }
+    input.search-input:focus {
+      outline: none;
+      border-color: #4e54c8;
+      box-shadow: 0 0 5px rgba(78, 84, 200, 0.5);
+    }
     table {
       width: 100%;
       border-collapse: separate;
@@ -65,6 +79,7 @@
     tbody tr {
       transition: background-color 0.25s ease;
       cursor: default;
+      position: relative;
     }
     tbody tr:hover {
       background-color: #f1f3ff;
@@ -91,7 +106,8 @@
       top: 50%;
       transform: translateY(-50%);
       font-size: 1.2rem;
-      pointer-events: none;
+      pointer-events: auto; /* enable clicks */
+      cursor: pointer;
     }
     .icon-minus {
       color: #e55353;
@@ -109,6 +125,7 @@
     <!-- Liste des validés -->
     <div class="card-list">
       <h2>✅ Liste des validés</h2>
+      <input type="text" class="search-input" placeholder="Rechercher dans les validés..." data-target="table-valides" />
       <table>
         <thead>
           <tr>
@@ -119,23 +136,18 @@
         </thead>
         <tbody id="table-valides">
           <tr>
-            <td class="name-cell">
-              Dupont
-              
-            </td>
+            <td class="name-cell">Dupont</td>
             <td>Alice</td>
             <td>Terminale S
-            <i class="bi bi-dash-lg icon-end icon-minus" title="Validé"></i>
+              <i class="bi bi-dash-lg icon-end icon-minus" title="Validé"></i>
             </td>
           </tr>
           <tr>
-            <td class="name-cell">
-              Martin
-             
-            </td>
+            <td class="name-cell">Martin</td>
             <td>Jean</td>
             <td>1ère STMG
-             <i class="bi bi-dash-lg icon-end icon-minus" title="Validé"></i></td>
+              <i class="bi bi-dash-lg icon-end icon-minus" title="Validé"></i>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -144,6 +156,7 @@
     <!-- Liste des inscrits -->
     <div class="card-list">
       <h2>📝 Liste des inscrits</h2>
+      <input type="text" class="search-input" placeholder="Rechercher dans les inscrits..." data-target="table-inscrits" />
       <table>
         <thead>
           <tr>
@@ -154,30 +167,88 @@
         </thead>
         <tbody id="table-inscrits">
           <tr>
-            <td class="name-cell">
-              Lemoine
-             
-            </td>
+            <td class="name-cell">Lemoine</td>
             <td>Lucie</td>
             <td>2nde 2
-             <i class="bi bi-plus-lg icon-end icon-plus" title="Inscrit"></i>
-             </td>
+              <i class="bi bi-plus-lg icon-end icon-plus" title="Inscrit"></i>
+            </td>
           </tr>
           <tr>
-            <td class="name-cell">
-              Nguyen
-             
-            </td>
+            <td class="name-cell">Nguyen</td>
             <td>David</td>
             <td>1ère G1
-             <i class="bi bi-plus-lg icon-end icon-plus" title="Inscrit"></i>
-             </td>
+              <i class="bi bi-plus-lg icon-end icon-plus" title="Inscrit"></i>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
+  <script>
+    const tableValides = document.getElementById("table-valides");
+    const tableInscrits = document.getElementById("table-inscrits");
+
+    // Fonction pour gérer le clic sur les icônes
+    function setupIconListeners(tbody, isValides) {
+      tbody.querySelectorAll('i').forEach(icon => {
+        icon.style.cursor = 'pointer';
+        icon.onclick = () => {
+          const row = icon.closest('tr');
+          const newRow = row.cloneNode(true);
+
+          if (isValides) {
+            // - passe à +
+            newRow.querySelector('i').classList.replace('bi-dash-lg', 'bi-plus-lg');
+            newRow.querySelector('i').classList.replace('icon-minus', 'icon-plus');
+            newRow.querySelector('i').setAttribute('title', 'Inscrit');
+
+            tableInscrits.insertBefore(newRow, tableInscrits.firstChild);
+          } else {
+            // + passe à -
+            newRow.querySelector('i').classList.replace('bi-plus-lg', 'bi-dash-lg');
+            newRow.querySelector('i').classList.replace('icon-plus', 'icon-minus');
+            newRow.querySelector('i').setAttribute('title', 'Validé');
+
+            tableValides.insertBefore(newRow, tableValides.firstChild);
+          }
+
+          row.remove();
+
+          setupIconListeners(tableValides, true);
+          setupIconListeners(tableInscrits, false);
+        };
+      });
+    }
+
+    setupIconListeners(tableValides, true);
+    setupIconListeners(tableInscrits, false);
+
+    // Fonction de filtre pour la recherche
+    function filterTable(input) {
+      const filter = input.value.toLowerCase();
+      const targetId = input.getAttribute('data-target');
+      const tbody = document.getElementById(targetId);
+      const rows = tbody.getElementsByTagName('tr');
+
+      for (let row of rows) {
+        // On récupère tout le texte de la ligne (nom, prénom, classe)
+        const text = row.textContent.toLowerCase();
+        if (text.includes(filter)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      }
+    }
+
+    // Ajout des écouteurs sur les inputs de recherche
+    document.querySelectorAll('.search-input').forEach(input => {
+      input.addEventListener('input', () => filterTable(input));
+    });
+  </script>
+
 </body>
 </html>
+
 {% endblock %} 
