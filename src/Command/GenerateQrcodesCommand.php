@@ -44,12 +44,13 @@ class GenerateQrcodesCommand extends Command
         $updated = 0;
 
         foreach ($participants as $participant) {
-            if ($participant->getQrCode()) {
-                continue;
-            }
+            // décommenter la ligne suivante si vous souhaitez ignorer les participants qui ont déjà un QR code
+            // if ($participant->getQrCode()) {
+            //     continue;
+            // }
 
             $token = Uuid::v4()->toRfc4122();
-            $url = 'http://127.0.0.1:8000/scan/' . $token;
+            $url = '/scan/' . $token;
             $qrPath = $qrDir . $token . '.png';
 
             $builder = Builder::create()

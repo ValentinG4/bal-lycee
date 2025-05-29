@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Participants</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <h1>Participants</h1>
+
+    <div style="display: flex; gap: 20px;">
+        <div style="width: 50%;">
+            <h2>✅ Passés</h2>
+            <table border="1" id="table-passes">
+                <thead><tr><th>Nom</th><th>Prénom</th><th>Classe</th><th>Action</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div style="width: 50%;">
+            <h2>🕗 Non passés</h2>
+            <table border="1" id="table-non-passes">
+                <thead><tr><th>Nom</th><th>Prénom</th><th>Classe</th><th>Action</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+    let isFetching = false;
+
+    function fetchParticipants() {
+        if (isFetching) return;
+        isFetching = true;
+
+        fetch('/participants/list')
+            .then(response => response.json())
+            .then(participants => {
+                $('#table-passes tbody, #table-non-passes tbody').empty();
+
+                participants.forEach(function (p) {
+                    const row = `<tr>
+                        <td>${p.nom}</td>
+                        <td>${p.prenom}</td>
+                        <td>${p.classe}</td>
+                        <td><button onclick="toggleStatut(${p.id})">Basculer</button></td>
+                    </tr>`;
+
+                    if (p.statut === 'passé') {
+                        $('#table-passes tbody').append(row);
+                    } else {
+                        $('#table-non-passes tbody').append(row);
+                    }
+                });
+            })
+            .finally(() => {
+                isFetching = false;
+            });
+    }
+
+    function toggleStatut(id) {
+        $.post(`/participants/toggle/${id}`, function () {
+            fetchParticipants(); // Refresh just after the switch
+        });
+    }
+
+    // Auto-refresh toutes les 0.5 seconde
+    setInterval(fetchParticipants, 500);
+    fetchParticipants(); // Initial load
+</script>
+
+</body>
+</html>

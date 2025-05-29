@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Statut des Participants</h1>
+
+<table id="participants-table" class="display">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Classe</th>
+            <th>Statut</th>
+        </tr>
+    </thead>
+</table>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        const table = $('#participants-table').DataTable({
+            ajax: {
+                url: '{{ path('api_participants_scan_status') }}',
+                dataSrc: ''
+            },
+            columns: [
+                { data: 'nom' },
+                { data: 'prenom' },
+                { data: 'classe' },
+                { data: 'statut' }
+            ],
+            paging: false,
+            searching: false,
+            info: false
+        });
+
+        // Actualisation toutes les 1000 ms
+        setInterval(function () {
+            table.ajax.reload(null, false); // false = conserve la pagination
+        }, 1000);
+    });
+</script>
+{% endblock %}
