@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Scan vue{% endblock %}
+
+{% block body %}
+    <h1>Participant trouvé</h1>
+    <ul>
+        <li><strong>Nom :</strong> {{ participant.nom }}</li>
+        <li><strong>Prénom :</strong> {{ participant.prenom }}</li>
+        <li><strong>Classe :</strong> {{ participant.classe }}</li>
+        <li><strong>Statut :</strong> {{ participant.statut }}</li>
+    </ul>
+{% endblock %}
