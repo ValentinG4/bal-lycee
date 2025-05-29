@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ParticipantsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ParticipantsRepository::class)]
 class Participants
@@ -28,6 +29,7 @@ class Participants
     #[ORM\Column(length: 255)]
     private ?string $qrCode = null;
 
+    #[Groups('participants:read')]
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
 
