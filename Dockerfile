@@ -14,9 +14,10 @@ WORKDIR /app
 COPY . .
 
 # Installer les dépendances
-RUN composer install --no-dev --optimize-autoloader && \
-    php bin/console cache:clear --env=prod && \
-    php bin/console cache:warmup --env=prod
+RUN composer install --no-dev --optimize-autoloader
+RUN php bin/console cache:clear --env=prod
+RUN php bin/console cache:warmup --env=prod
 
+ENV COMPOSER_ALLOW_SUPERUSER=1
 # Lancer le serveur PHP Symfony
 CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
