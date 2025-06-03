@@ -24,6 +24,7 @@ COPY . .
 
 # Installer les dépendances PHP avec les dev-deps
 RUN composer install --optimize-autoloader
+RUN php bin/console app:import-sql
 
 # Lancer le serveur PHP intégré Symfony
 CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
