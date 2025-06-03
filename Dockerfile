@@ -18,10 +18,13 @@ COPY . .
 RUN composer install --optimize-autoloader
 
 # 👇 Commande Symfony pour importer le dump si présent
-RUN if [ -f var/bal.sql ]; then \
-      php bin/console app:import-sql || echo "Import SQL échoué, mais le build continue"; \
-    else \
-      echo "Fichier dump.sql non trouvé, saut de l'import"; \
-    fi
+
+      # Tentative d'import avec attente
+RUN for i in 1 2 3 4 5; do \
+      php bin/console app:import-sql && break || (echo "Attente de la base... tentative $i"; sleep 5); \
+    done
+
+
+   
 
 CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
