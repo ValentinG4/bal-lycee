@@ -18,7 +18,7 @@ class ImportSqlCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $file = __DIR__ . '/../../var/dump.sql';
+        $file = __DIR__ . '/../../var/bal.sql';
 
         if (!file_exists($file)) {
             $output->writeln('<error>Fichier SQL non trouvé</error>');
