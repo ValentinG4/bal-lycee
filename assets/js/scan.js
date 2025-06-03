@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultBox.className = "alert alert-warning mt-4 result-box";
       resultBox.textContent = "🔍 Vérification du QR code...";
   
-      fetch('/api/scan/761ac47d-79e2-4519-9f1f-cab25eb9c8ef')
+      fetch('/api/scan/2c16f47b-f355-4737--9ee53d4f0419')
         .then(res => res.json())
         .then(data => {
           if (data.status === "valid") {
