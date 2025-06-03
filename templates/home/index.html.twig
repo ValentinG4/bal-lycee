@@ -8,6 +8,13 @@
 
 {% endblock %}
 
+{% block javascripts %}
+
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="{{ asset('js/scan.js')}}"></script>
+ 
+{% endblock %}
+
 {% block body %}
 
   <div id="page-body" class="scanner-card text-center">
@@ -39,10 +46,4 @@
 </div>
 {% endblock %}
 
-{% block javascripts %}
-
-    <script src="{{ asset('js/scan.js')}}"></script>
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-
-{% endblock %}
 
