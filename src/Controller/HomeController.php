@@ -19,7 +19,7 @@ final class HomeController extends AbstractController
         ]);
     }
 
-#[Route('/api/scan/{token}', name: 'api_scan_token')]
+#[Route('/api/scan/{token}', name: 'api_scan_token', requirements: ['token' => '.+'])]
 public function apiScan(string $token, EntityManagerInterface $em): JsonResponse
 {
     $participant = $em->getRepository(Participants::class)->findOneBy(['qrCode' => $token]);
