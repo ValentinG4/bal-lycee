@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const scanner = new Html5Qrcode("reader");
     let scanning = false;
   
-    function handleResult() {
+    function handleResult(decodedText) {
       console.log("Résultat du scan reçu");
       scanning = false;
       // Vérifie si le scanner est en cours avant d'appeler stop()
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultBox.className = "alert alert-warning mt-4 result-box";
       resultBox.textContent = "🔍 Vérification du QR code...";
   
-      fetch('/api/scan/2c16f47b-f355-4737--9ee53d4f0419')
+      fetch('/api/scan/${encodeURIComponent(decodedText)}')
         .then(res => res.json())
         .then(data => {
           if (data.status === "valid") {
