@@ -3,7 +3,8 @@ FROM php:8.2-cli
 
 RUN apt-get update && apt-get install -y \
     unzip zip git curl libicu-dev libzip-dev libonig-dev libpq-dev libxml2-dev \
-    && docker-php-ext-install intl pdo pdo_mysql zip opcache
+    && docker-php-ext-install intl pdo pdo_pgsql pdo_mysql zip opcache
+
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
