@@ -21,9 +21,9 @@ RUN php bin/console importmap:install
 # 👇 Commande Symfony pour importer le dump si présent
 
       # Tentative d'import avec attente
-RUN for i in 1 2 3 4 5; do \
-      php bin/console app:import-sql && break || (echo "Attente de la base... tentative $i"; sleep 5); \
-    done
+# RUN for i in 1 2 3 4 5; do \
+#       php bin/console app:import-sql && break || (echo "Attente de la base... tentative $i"; sleep 5); \
+#     done
 
 
    
