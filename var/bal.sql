@@ -18,65 +18,65 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `bal`
+-- Base de données : "bal"
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `doctrine_migration_versions`
+-- Structure de la table "doctrine_migration_versions"
 --
 
-CREATE TABLE `doctrine_migration_versions` (
-  `version` varchar(191) NOT NULL,
-  `executed_at` datetime DEFAULT NULL,
-  `execution_time` int(11) DEFAULT NULL
+CREATE TABLE "doctrine_migration_versions" (
+  "version" varchar(191) NOT NULL,
+  "executed_at" datetime DEFAULT NULL,
+  "execution_time" int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Déchargement des données de la table `doctrine_migration_versions`
+-- Déchargement des données de la table "doctrine_migration_versions"
 --
 
-INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
+INSERT INTO "doctrine_migration_versions" ("version", "executed_at", "execution_time") VALUES
 ('DoctrineMigrations\\Version20250528101010', '2025-05-28 12:10:31', 41);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `messenger_messages`
+-- Structure de la table "messenger_messages"
 --
 
-CREATE TABLE `messenger_messages` (
-  `id` bigint(20) NOT NULL,
-  `body` longtext NOT NULL,
-  `headers` longtext NOT NULL,
-  `queue_name` varchar(190) NOT NULL,
-  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  `available_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)'
+CREATE TABLE "messenger_messages" (
+  "id" bigint(20) NOT NULL,
+  "body" longtext NOT NULL,
+  "headers" longtext NOT NULL,
+  "queue_name" varchar(190) NOT NULL,
+  "created_at" datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  "available_at" datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  "delivered_at" datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `participants`
+-- Structure de la table "participants"
 --
 
-CREATE TABLE `participants` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(255) DEFAULT NULL,
-  `prenom` varchar(255) DEFAULT NULL,
-  `classe` varchar(255) DEFAULT NULL,
-  `mail` varchar(255) NOT NULL,
-  `qr_code` varchar(255) NOT NULL,
-  `statut` varchar(255) NOT NULL
+CREATE TABLE "participants" (
+  "id" int(11) NOT NULL,
+  "nom" varchar(255) DEFAULT NULL,
+  "prenom" varchar(255) DEFAULT NULL,
+  "classe" varchar(255) DEFAULT NULL,
+  "mail" varchar(255) NOT NULL,
+  "qr_code" varchar(255) NOT NULL,
+  "statut" varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `participants`
+-- Déchargement des données de la table "participants"
 --
 
-INSERT INTO `participants` (`id`, `nom`, `prenom`, `classe`, `mail`, `qr_code`, `statut`) VALUES
+INSERT INTO "participants" ("id", "nom", "prenom", "classe", "mail", "qr_code", "statut") VALUES
 (1, 'Nom0', 'Valentin', 'Terminale A', 'emailtest0@example.com', '35c39bb4-8714-4a56-adce-ebad5a871c83', 'valide'),
 (2, 'Nom1', 'Prenom1', 'Terminale A', 'emailtest1@example.com', 'd43af0d2-9a89-49eb-ae66-bcbcdd5486e8', 'passé'),
 (3, 'Nom2', 'Prenom2', 'Terminale A', 'emailtest2@example.com', '0ac96bb2-f321-4379-a88b-2f58e54eb94b', 'valide'),
@@ -183,41 +183,41 @@ INSERT INTO `participants` (`id`, `nom`, `prenom`, `classe`, `mail`, `qr_code`, 
 --
 
 --
--- Index pour la table `doctrine_migration_versions`
+-- Index pour la table "doctrine_migration_versions"
 --
-ALTER TABLE `doctrine_migration_versions`
-  ADD PRIMARY KEY (`version`);
+ALTER TABLE "doctrine_migration_versions"
+  ADD PRIMARY KEY ("version");
 
 --
--- Index pour la table `messenger_messages`
+-- Index pour la table "messenger_messages"
 --
-ALTER TABLE `messenger_messages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
-  ADD KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
-  ADD KEY `IDX_75EA56E016BA31DB` (`delivered_at`);
+ALTER TABLE "messenger_messages"
+  ADD PRIMARY KEY ("id"),
+  ADD KEY "IDX_75EA56E0FB7336F0" ("queue_name"),
+  ADD KEY "IDX_75EA56E0E3BD61CE" ("available_at"),
+  ADD KEY "IDX_75EA56E016BA31DB" ("delivered_at");
 
 --
--- Index pour la table `participants`
+-- Index pour la table "participants"
 --
-ALTER TABLE `participants`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE "participants"
+  ADD PRIMARY KEY ("id");
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT pour la table `messenger_messages`
+-- AUTO_INCREMENT pour la table "messenger_messages"
 --
-ALTER TABLE `messenger_messages`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE "messenger_messages"
+  MODIFY "id" bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `participants`
+-- AUTO_INCREMENT pour la table "participants"
 --
-ALTER TABLE `participants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+ALTER TABLE "participants"
+  MODIFY "id" int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
