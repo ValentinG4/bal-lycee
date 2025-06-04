@@ -80,8 +80,9 @@
         "symfony/polyfill-php82": "*"
     },
     "scripts": {
-        "post-install-cmd": [],
-        "post-update-cmd": []
+        
+        "post-install-cmd": ["@symfony-scripts"],
+        "post-update-cmd": ["@symfony-scripts"]
     },
     "conflict": {
         "symfony/symfony": "*"
