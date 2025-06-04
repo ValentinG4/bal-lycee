@@ -30,8 +30,8 @@ class Participants
     private ?string $qrCode = null;
 
     #[Groups('participants:read')]
-    #[ORM\Column(length: 255)]
-    private ?string $statut = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $statut = false;
 
     public function getId(): ?int
     {
@@ -98,15 +98,19 @@ class Participants
         return $this;
     }
 
-    public function getStatut(): ?string
+    public function getStatut(): ?bool
     {
         return $this->statut;
     }
 
-    public function setStatut(string $statut): static
+    public function isStatut(): bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(bool $statut): static
     {
         $this->statut = $statut;
-
         return $this;
     }
 }

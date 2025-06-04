@@ -31,7 +31,7 @@ public function apiScan(string $token, EntityManagerInterface $em): JsonResponse
         ]);
     }
 
-    if ($participant->getStatut() === 'valide') {
+    if ($participant->isStatut() === true) {
         return $this->json([
             'status' => 'already_used',
             'message' => "Ce QR code a déjà été scanné.",
@@ -42,7 +42,7 @@ public function apiScan(string $token, EntityManagerInterface $em): JsonResponse
     }
 
     // Marquer le participant comme validé
-    $participant->setStatut('valide');
+    $participant->setStatut(true);
     $em->flush();
 
     return $this->json([

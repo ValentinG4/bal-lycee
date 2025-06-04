@@ -37,7 +37,7 @@ final class ParticipantTabController extends AbstractController
                 'nom' => $p->getNom(),
                 'prenom' => $p->getPrenom(),
                 'classe' => $p->getClasse(),
-                'statut' => $p->getStatut(),
+                'statut' => $p->isStatut(),
             ];
         }
 
@@ -53,8 +53,10 @@ final class ParticipantTabController extends AbstractController
             return $this->json(['error' => 'Participant non trouvé'], 404);
         }
 
-        $participant->setStatut($participant->getStatut() === 'passé' ? 'non_passé' : 'passé');
+        // $participant->setStatut($participant->isStatut() === true ? false : true);
 
+        $participant->setStatut(!$participant->getStatut());
+        $em->persist($participant);
         $em->flush();
 
         return $this->json(['success' => true]);

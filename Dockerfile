@@ -17,6 +17,8 @@ WORKDIR /app
 COPY . .
 
 RUN composer install --optimize-autoloader
+RUN php bin/console asset-map:compile
+
 # RUN php bin/console importmap:install
 
 # 👇 Commande Symfony pour importer le dump si présent

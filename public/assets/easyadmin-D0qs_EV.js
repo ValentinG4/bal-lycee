@@ -1,1 +1,0 @@
-import '@easycorp/easyadmin-bundle';
