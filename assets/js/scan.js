@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let scanning = false;
   
     function handleResult(token) {
-      alert("Token scanné : [" + token + "]");
-      console.log("Résultat du scan reçu", token);
+      // alert("Token scanné : [" + token + "]");
+      // console.log("Résultat du scan reçu", token);
       scanning = false;
       // Vérifie si le scanner est en cours avant d'appeler stop()
       if (scanner.getState && scanner.getState() === 2) { // 2 = SCANNING
@@ -20,7 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
       resultBox.className = "alert alert-warning mt-4 result-box";
       resultBox.textContent = "🔍 Vérification du QR code...";
   
-      fetch('/api/scan/'+ encodeURIComponent(token))
+      // Ici pour la route du scan, faire attention à l'URL du token quand il est genéré
+      fetch('/api'+ encodeURIComponent(token))
         .then(res => res.json())
         .then(data => {
           if (data.status === "valid") {
