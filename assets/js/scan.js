@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let scanning = false;
   
     function handleResult(token) {
+      alert("Token scanné : [" + token + "]");
       console.log("Résultat du scan reçu", token);
       scanning = false;
       // Vérifie si le scanner est en cours avant d'appeler stop()
