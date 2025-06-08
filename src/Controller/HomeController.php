@@ -23,13 +23,15 @@ final class HomeController extends AbstractController
 public function apiScan(string $token, EntityManagerInterface $em): JsonResponse
 {
     $participant = $em->getRepository(Participants::class)->findOneBy(['qrCode' => $token]);
-
+    
     if (!$participant) {
         return $this->json([
             'status' => 'unknown',
             'message' => "Aucun participant trouvé pour ce QR code.",
         ]);
     }
+
+    $em->refresh($participant);
 
     if ($participant->isStatut() === true) {
         return $this->json([
